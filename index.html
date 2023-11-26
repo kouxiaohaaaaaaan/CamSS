@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ title }}</title>
+</head>
+<body>
+    <h1>Welcome to the Short Video Scripting Web Portal!</h1>
+    <p>This is a simple example of a webpage created using Flask.</p>
+
+    <form method="POST" action="/submit">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="video-type">Video Type:</label>
+        <select id="video-type" name="video_type">
+            <option value="搞笑">搞笑</option>
+            <option value="美食">美食</option>
+            <option value="旅行">旅行</option>
+        </select>
+        <input type="submit" value="Sumbit">
+    </form>
+</body>
+</html>
