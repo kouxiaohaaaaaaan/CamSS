@@ -1,23 +1,64 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>{{ title }}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Chatbot Website</title>
+    <!-- Add your stylesheet link here -->
+    <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <h1>Welcome to the Short Video Scripting Web Portal!</h1>
-    <p>This is a simple example of a webpage created using Flask.</p>
+    <header>
+        <h1>Welcome to our Chatbot Service</h1>
+    </header>
 
-    <form method="POST" action="/submit">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required>
-        <br>
-        <label for="video-type">Video Type:</label>
-        <select id="video-type" name="video_type">
-            <option value="搞笑">搞笑</option>
-            <option value="美食">美食</option>
-            <option value="旅行">旅行</option>
-        </select>
-        <input type="submit" value="Sumbit">
-    </form>
+    <main>
+        <div id="content-wrapper">
+            <!-- Left Column for Dropdown and Buttons -->
+            <aside id="left-column">
+                <form id="options-form">
+                    <label for="options-dropdown">Choose an option:</label>
+
+                    <select id ="options-dropdown" name="options">
+                        <option value="option1">Option 1</option>
+                        <option value="option2">Option 2</option>
+                        <option value="option3">Option 3</option>
+                    </select>
+                </form>
+                <div id="additional-info-container">
+                    <label for="additional-info">Additional Info:</label>
+                    <input type="text" id="additional-info" name="additional-info">
+                </div>
+                <div id="button-container">
+                    <button type="button" id="button1" class="left-button">Button 1</button>
+                    <button type="button" id="button2" class="left-button">Button 2</button>
+                    <button type="button" id="button3" class="left-button">Button 3</button>
+                </div>
+            </aside>
+
+            <!-- Right Column for Chat -->
+            <section id="right-column">
+                <div class="chat-container">
+                    <div class="chat-box" id="chat-box">
+                        <!-- Chat messages will be displayed here -->
+                        <!-- Typing indicator -->
+                        <div id="chatbot-typing-indicator" style="display: none;">
+                            Chatbot is typing...
+                        </div>
+                    </div>
+                    <div id="chat-input-container">
+                        <textarea id="user-input" placeholder="Type your message here..." required></textarea>
+                        <button type="submit" id="send-button" class="right-button">Send</button>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2023 Chatbot Interactive Website</p>
+    </footer>
+    <!-- Add your JavaScript file link here -->
+    <script src="app.js"></script>
 </body>
 </html>

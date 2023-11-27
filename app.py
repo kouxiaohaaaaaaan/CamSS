@@ -1,13 +1,10 @@
-# This is a sample Python script.
-
-# Press Shift+F10 to execute it or replace it with your code.
-# Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
-
 import requests
 import json
+from flask import Flask, render_template, request, jsonify
+from flask_cors import CORS
 
 def load_env():
-    with open('.env','r') as file:
+    with open('.env', 'r') as file:
         lines = file.readlines()
     env_vars = {}
     for line in lines:
@@ -17,15 +14,29 @@ def load_env():
             env_vars[key] = value
     return env_vars
 
+env_vars = load_env()
+API_KEY = env_vars["API_KEY"]
+SECRET_KEY = env_vars["SECRET_KEY"]
 
-def main(API_KEY,SECRET_KEY):
+app = Flask(__name__, template_folder='.')
+CORS(app)
+
+@app.route('/getresponse',methods=['POST'])
+def get_response():
+    data = request.json
+    user_message = data['message']
+    #call chatbot to get a resp
+    chatbot_response = chatbot_res(user_message)
+    return jsonify({'response': chatbot_response})
+
+def chatbot_res(message):
     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token=" + get_access_token(API_KEY,SECRET_KEY)
 
     payload = json.dumps({
         "messages": [
             {
                 "role": "user",
-                "content": "我在上海，周末可以去哪里玩？"
+                "content": message
             }
         ]
     })
@@ -35,8 +46,10 @@ def main(API_KEY,SECRET_KEY):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
+    res_dict = json.loads(response.text)
 
-    print(response.text)
+    #return "TESTING"
+    return res_dict['result']
 
 def get_access_token(API_KEY,SECRET_KEY):
     """
@@ -48,11 +61,6 @@ def get_access_token(API_KEY,SECRET_KEY):
     return str(requests.post(url, params=params).json().get("access_token"))
 
 
-# Press the green button in the gutter to run the script.
 if __name__ == '__main__':
-    env_vars = load_env()
-    API_KEY = env_vars["API_KEY"]
-    SECRET_KEY = env_vars["SECRET_KEY"]
-    main(API_KEY,SECRET_KEY)
+    app.run(debug=True)
 
-# See PyCharm help at https://www.jetbrains.com/help/pycharm/
