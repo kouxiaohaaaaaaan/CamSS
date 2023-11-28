@@ -46,10 +46,10 @@ def chatbot_res(message):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    res_dict = json.loads(response.text)
+    #res_dict = json.loads(response.text)
 
     #return "TESTING"
-    return res_dict['result']
+    return response.json()['result']
 
 def get_access_token(API_KEY,SECRET_KEY):
     """
