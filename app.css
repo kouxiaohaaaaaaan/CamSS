@@ -4,7 +4,6 @@ body {
 
 header, footer {
     text-align: center;
-    padding: 1em;
     background-color: #f2f2f2;
 }
 #content-wrapper {
@@ -15,10 +14,15 @@ header, footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 70vh;
+    height: 85vh;
     width: 33%;
     padding: 20px;
     background-color: #e6e6e6;
+}
+.theme-form {
+    width: 51%;
+    height: 20px;
+    margin-bottom: 20px;
 }
 #additional-info-container {
     margin-bottom: auto;
@@ -37,9 +41,9 @@ header, footer {
 .left-button {
     display: block;
     width: calc(100% - 30px);
-    padding: 15px;
-    margin-bottom: 10px;
-    font-size:1.2em;
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size:1em;
     cursor: pointer;
 }
 .left-button:last-child {
@@ -55,18 +59,18 @@ header, footer {
 #right-column {
     width: 67%;
     padding: 20px;
+    height: 85vh;
 }
 #chat-container {
     display: flex;
     flex-direction: column;
-    height: calc(100vh - 100px);
     max-width: 800px;
     margin: 50px auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 #chat-box {
     flex-grow: 1;
-    height: 50vh;
+    height: 60vh;
     overflow-y: auto;
     padding: 20px;
     background: #f9f9f9;

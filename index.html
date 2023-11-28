@@ -3,37 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Interactive Chatbot Website</title>
+    <title>CamSS 交互网页</title>
     <!-- Add your stylesheet link here -->
     <link rel="stylesheet" href="app.css">
 </head>
 <body>
-    <header>
-        <h1>Welcome to our Chatbot Service</h1>
-    </header>
-
     <main>
         <div id="content-wrapper">
             <!-- Left Column for Dropdown and Buttons -->
             <aside id="left-column">
+                <header>
+                    <h1>媒体短视频脚本辅助生成系统</h1>
+                </header>
                 <form id="options-form">
-                    <label for="options-dropdown">Choose an option:</label>
-
-                    <select id ="options-dropdown" name="options">
-                        <option value="option1">Option 1</option>
-                        <option value="option2">Option 2</option>
-                        <option value="option3">Option 3</option>
+                    <label for="options-theme">主题类别:</label>
+                    <select id ="options-theme" name="options-theme" class="theme-form">
+                        <option value="" disabled selected>请选择</option>
+                        <option value="节日节点类">节日节点类</option>
+                        <option value="文化类">文化类</option>
+                        <option value="体育类">体育类</option>
+                        <option value="政治类">政治类</option>
+                        <option value="地方类">地方类</option>
+                        <option value="其他">其他</option>
                     </select>
+                    <br>
+                    <label for="theme-info">主题内容:</label>
+                    <input type="text" id="theme-info" name="theme-info" class="theme-form" placeholder="例如元旦/春节/端午等">
+                    <br>
+                    <label for="topic-info">选题内容:</label>
+                    <input type="text" id="topic-info" name="topic-info" class="theme-form" placeholder="如无具体选题，可输入'呼叫小媒'">
+                    <br>
+                    <label for="options-video-form">视频形式:</label>
+                    <select id ="options-video-form" name="options-video-form" class="theme-form">
+                        <option value="" disabled selected>请选择</option>
+                        <option value="真人出镜">真人出镜</option>
+                        <option value="混剪视频">混剪视频</option>
+                        <option value="动画短片">动画短片</option>
+                        <option value="纯文字效果">文字翻转</option>
+                        <option value="VR视频">VR视频</option>
+                        <option value="其他">其他</option>
+                    </select>
+                    <br>
+                    <button type="button" id="idea-generation" class="left-button">脚本思路生成</button>
+                    <button type="button" id="material-search" class="left-button">资料案例搜索</button>
+                    <button type="button" id="draft-script" class="left-button">标题稿件生成</button>
+                    <button type="button" id="clear" class="left-button">重新开始</button>
                 </form>
-                <div id="additional-info-container">
-                    <label for="additional-info">Additional Info:</label>
-                    <input type="text" id="additional-info" name="additional-info">
-                </div>
-                <div id="button-container">
-                    <button type="button" id="button1" class="left-button">Button 1</button>
-                    <button type="button" id="button2" class="left-button">Button 2</button>
-                    <button type="button" id="button3" class="left-button">Button 3</button>
-                </div>
             </aside>
 
             <!-- Right Column for Chat -->
@@ -56,7 +71,7 @@
     </main>
 
     <footer>
-        <p>&copy; 2023 Chatbot Interactive Website</p>
+        <p>&copy; 2023 Create Automatic Multi-Media Short-Video Scripting Interactive Website</p>
     </footer>
     <!-- Add your JavaScript file link here -->
     <script src="app.js"></script>

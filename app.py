@@ -1,7 +1,12 @@
+import os.path
+
 import requests
 import json
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS
+
+chat_f = 'chat_history.json'
+chat_msg_f = 'chat_history.msg.json'
 
 def load_env():
     with open('.env', 'r') as file:
@@ -32,13 +37,20 @@ def get_response():
 def chatbot_res(message):
     url = "https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions_pro?access_token=" + get_access_token(API_KEY,SECRET_KEY)
 
+    try:
+        with open(chat_msg_f, 'r') as f:
+            data = json.load(f)
+    except json.decoder.JSONDecodeError:
+        data = []
+    except FileNotFoundError:
+        data = []
+    if not isinstance(data, list):
+        data = [data]
+    user_data = {"role": "user", "content": message}
+    data.append(user_data)
+    #print(data)
     payload = json.dumps({
-        "messages": [
-            {
-                "role": "user",
-                "content": message
-            }
-        ]
+        "messages": data
     })
     headers = {
         'Content-Type': 'application/json',
@@ -46,10 +58,45 @@ def chatbot_res(message):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload)
-    #res_dict = json.loads(response.text)
+    try:
+        with open(chat_f, 'r') as f:
+            data = json.load(f)
+    except json.decoder.JSONDecodeError:
+        data = []
+    except FileNotFoundError:
+        data = []
+    if not isinstance(data, list):
+        data = [data]
+    #print(data)
+    data.append(response.json())
+    with open(chat_f, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=True)
 
-    #return "TESTING"
+    try:
+        with open(chat_msg_f, 'r') as f:
+            data = json.load(f)
+    except json.decoder.JSONDecodeError:
+        data = []
+    except FileNotFoundError:
+        data = []
+    if not isinstance(data, list):
+        data = [data]
+    user_data = {"role": "user", "content": message}
+    bot_data = {"role": "assistant", "content": response.json()['result']}
+    data.append(user_data)
+    data.append(bot_data)
+    with open(chat_msg_f, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=True)
+
     return response.json()['result']
+
+@app.route('/clrresponse',methods=['POST'])
+def clr_response():
+    with open(chat_f, 'w') as f:
+        pass
+    with open(chat_msg_f, 'w') as f:
+        pass
+    return jsonify({'response': "Done"})
 
 def get_access_token(API_KEY,SECRET_KEY):
     """
