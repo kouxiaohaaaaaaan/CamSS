@@ -135,6 +135,7 @@ function genInitMessage() {
     var themeInfo = document.getElementById('theme-info');
     var topicInfo = document.getElementById('topic-info');
     var videoForm = document.getElementById('options-video-form');
+    var videoStyle = document.getElementById('options-video-style');
 
     var initMessage1 = '你现在是一个专业的精通各类短视频制作的内容创作者，现在用户需要你的帮助来完成一部短视频的创作.';
     var initMessage2 = '该用户想要创作的主题类别是：' + theme.value + ', 想要包含的主题内容有：' + themeInfo.value + '.';
@@ -145,7 +146,8 @@ function genInitMessage() {
         initMessage3 += topicInfo.value + '.';
     }
     var initMessage4 = '短视频的形式限定为：' + videoForm.value + '.';
-    var initMessage = initMessage1 + initMessage2 + initMessage3 + initMessage4;
+    var initMessage5 = '短视频的风格限定为：' + videoStyle.value + '.';
+    var initMessage = initMessage1 + initMessage2 + initMessage3 + initMessage4 + initMessage5;
     return initMessage;
 }
 var ideaGenButton = document.getElementById('idea-generation');
