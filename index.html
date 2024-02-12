@@ -6,6 +6,7 @@
     <title>CamSS 交互网页</title>
     <!-- Add your stylesheet link here -->
     <link rel="stylesheet" href="app.css">
+    <link rel="stylesheet" href="select2.min.css">
 </head>
 <body>
     <main>
@@ -17,48 +18,70 @@
                 </header>
                 <form id="options-form">
                     <label for="options-theme">主题类别:</label>
-                    <select id ="options-theme" name="options-theme" class="theme-form">
+                    <select id ="options-theme" name="options-theme"  class="theme-form">
                         <option value="" disabled selected>请选择</option>
+                        <option value="地方宣传类">地方宣传类</option>
                         <option value="节日节点类">节日节点类</option>
-                        <option value="文化类">文化类</option>
-                        <option value="体育类">体育类</option>
-                        <option value="政治类">政治类</option>
-                        <option value="地方类">地方类</option>
-                        <option value="其他">其他</option>
+                        <option value="传统文化类">传统文化类</option>
+                        <option value="人物故事类">人物故事类</option>
+                        <!-- <option value="政治类">政治类</option> -->
+                        <!-- <option value="其他">其他</option> -->
                     </select>
                     <br>
                     <label for="theme-info">主题内容:</label>
-                    <input type="text" id="theme-info" name="theme-info" class="theme-form" placeholder="例如元旦/春节/端午等">
+                    <input type="text" id="theme-info" name="theme-info" class="theme-form" placeholder="请先选择主题类别">
                     <br>
-                    <label for="topic-info">选题内容:</label>
-                    <input type="text" id="topic-info" name="topic-info" class="theme-form" placeholder="如无具体选题，可输入'呼叫小媒'">
-                    <br>
-                    <label for="options-video-form">视频形式:</label>
-                    <select id ="options-video-form" name="options-video-form" class="theme-form">
-                        <option value="" disabled selected>请选择</option>
-                        <option value="真人出镜">真人出镜</option>
-                        <option value="混剪视频">混剪视频</option>
-                        <option value="动画短片">动画短片</option>
-                        <option value="纯文字效果">文字翻转</option>
-                        <option value="VR视频">VR视频</option>
-                        <option value="其他">其他</option>
-                    </select>
-                    <br>
-                    <label for="options-video-style">视频风格:</label>
-                    <select id ="options-video-style" name="options-video-style" class="theme-form">
-                        <option value="" disabled selected>请选择</option>
-                        <option value="正能量">正能量</option>
-                        <option value="感人">感人</option>
-                        <option value="恢弘大气">恢弘大气</option>
-                        <option value="轻松幽默">轻松幽默</option>
-                        <option value="快节奏">快节奏</option>
-                        <option value="慢节奏">慢节奏</option>
-                        <option value="纪实风">纪实风</option>
-                        <option value="科技感">科技感</option>
-                    </select>
-                    <br>
-                    <button type="button" id="idea-generation" class="left-button">脚本思路生成</button>
-                    <button type="button" id="material-search" class="left-button">资料案例搜索</button>
+                    <div class="topic-input-container">
+                        <label for="topic-info">选题内容:</label>
+                        <input type="text" id="topic-info" name="topic-info" class="theme-form" placeholder="请先输入主题内容">
+                        <button type="button" id="topic_auto_gen">小媒推荐</button>
+                    </div>
+                    <div class="video-name-input-container">
+                        <label for="video-name">视频名称:</label>
+                        <input type="text" id="video-name" name="video-name" class="theme-form" placeholder="请先输入选题内容">
+                        <button type="button" id="name_auto_gen">小媒推荐</button>
+                    </div>
+                    <div class="select2-wrapper">
+                        <label for="options-video-form" class="select2-label">表现形式:</label>
+                        <select id ="options-video-form" name="options-video-form[]"  multiple="multiple">
+                            <!-- <option value="" disabled selected>请选择</option> -->
+                            <option value="片段剪辑">片段剪辑</option>
+                            <option value="取景拍摄">取景拍摄</option>
+                            <option value="对镜解说">对镜解说</option>
+                            <option value="剧情演绎">剧情演绎</option>
+                            <option value="创意剪辑">创意剪辑</option>
+                            <option value="动画特效">动画特效</option>
+                            <option value="虚拟现实">虚拟现实</option>
+                            <option value="航拍">航拍</option>
+                            <option value="第一视角">第一视角</option>
+                        </select>
+                    </div>
+                    <div class="select2-wrapper">
+                        <label for="options-video-style" class="select2-label">叙事方式:</label>
+                        <select id ="options-video-style" name="options-video-style[]" multiple="multiple">
+                            <option value="顺叙">顺叙</option>
+                            <option value="倒叙">倒叙</option>
+                            <option value="插叙">插叙</option>
+                            <option value="平叙">平叙</option>
+                            <option value="直接叙述">直接叙述</option>
+                            <option value="一镜到底">一镜到底</option>
+                            <option value="设置悬念">设置悬念</option>
+                            <option value="交互叙事">交互叙事</option>
+                        </select>
+                    </div>
+                    <div class="select2-wrapper">
+                        <label for="options-video-narrative" class="select2-label">人声形式:</label>
+                        <select id="options-video-narrative" name="options-video-narrative[]" multiple="multiple">
+                            <option value="旁白">旁白</option>
+                            <option value="独白">独白</option>
+                            <option value="对话">对话</option>
+                            <option value="无">无</option>
+                        </select>
+                    </div>
+                    <div class="button-input-container">
+                        <button type="button" id="idea-generation" class="left-button">脚本思路生成</button>
+                        <button type="button" id="material-search" class="left-button">资料案例搜索</button>
+                    </div>
                     <button type="button" id="draft-script" class="left-button">标题稿件生成</button>
                     <button type="button" id="clear" class="left-button">重新开始</button>
                 </form>
@@ -71,7 +94,7 @@
                         <!-- Chat messages will be displayed here -->
                         <!-- Typing indicator -->
                         <div id="chatbot-typing-indicator" style="display: none;">
-                            Chatbot is typing...
+                            小媒正在输入...
                         </div>
                     </div>
                     <div id="chat-input-container">
@@ -87,6 +110,8 @@
         <p>&copy; 2023 Create Automatic Multi-Media Short-Video Scripting Interactive Website</p>
     </footer>
     <!-- Add your JavaScript file link here -->
+    <script src="jquery-3.7.1.min.js"></script>
+    <script src="select2.min.js"></script>
     <script src="app.js"></script>
 </body>
 </html>

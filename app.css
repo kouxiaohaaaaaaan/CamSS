@@ -1,3 +1,5 @@
+@import url('https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css');
+
 body {
     font-family: Arial, sans-serif;
 }
@@ -39,8 +41,9 @@ header, footer {
     align-items: center;
 }
 .left-button {
-    display: block;
-    width: calc(100% - 30px);
+    #display: block;
+    width: 35%;
+    #width: calc(100% - 30px);
     padding: 5px;
     margin-bottom: 20px;
     font-size:1em;
@@ -135,4 +138,36 @@ header, footer {
 }
 #chat-input button:hover {
     background: #4cae4c;
+}
+
+.select2-container--default .select2-selection--single,
+.select2-container--default .select2-selection--multiple .select2-selection__choice,
+.select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field {
+    font-size: 14px;
+}
+.select2-container--default .select2-results__option {
+    font-size: 14px;
+}
+
+.select2-container--default .select2-search--dropdown .select2-search__field {
+    font-size: 14px;
+}
+
+.select2-container {
+    width: 55% !important;
+    margin-bottom: 10px !important;
+}
+
+.select2-container--default .select2-selection--multiple 。select2-search-inline .select2-search__field {
+    height: auto;
+}
+
+.select2-wrapper {
+    display: flex;
+    align-items: top;
+    justify-content: flex-start;
+}
+
+.select2-label {
+    margin-right: 5px;
 }

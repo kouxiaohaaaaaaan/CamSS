@@ -33,7 +33,7 @@ function clrMessage() {
     // clear the message to the chatbox
     chatbox.innerHTML = `
         <div id="chatbot-typing-indicator" style="display: none;">
-            Chatbot is typing...
+            小媒正在输入...
         </div>
         <div class="message-container user-message">
             <div class="message">clear previous history</div>
@@ -130,32 +130,68 @@ document.getElementById('send-button').addEventListener('click',function() {
 });
 
 //获取元素
-function genInitMessage() {
+function genInitMessage1() {
     var theme = document.getElementById('options-theme');
     var themeInfo = document.getElementById('theme-info');
+
+    var initMessage1 = '你现在是一个专业的精通各类媒体短视频制作的内容创作者，现在用户需要你的帮助来完成一部短视频的创作.';
+    var initMessage2 = '该用户想要创作的主题类别是：' + theme.value + ', 想要包含的主题内容有：' + themeInfo.value + '.';
+
+    var initMessage = initMessage1 + initMessage2;
+    return initMessage;
+}
+
+function genInitMessage2() {
     var topicInfo = document.getElementById('topic-info');
+
+    var initMessage3 = '具体的内容需要包含：';
+    initMessage3 += topicInfo.value + '.';
+
+    return initMessage3;
+}
+
+
+function genInitMessage() {
     var videoForm = document.getElementById('options-video-form');
     var videoStyle = document.getElementById('options-video-style');
 
-    var initMessage1 = '你现在是一个专业的精通各类短视频制作的内容创作者，现在用户需要你的帮助来完成一部短视频的创作.';
-    var initMessage2 = '该用户想要创作的主题类别是：' + theme.value + ', 想要包含的主题内容有：' + themeInfo.value + '.';
-    var initMessage3 = '具体的内容需要包含：';
-    if (topicInfo.value.includes("小媒")) {
-        initMessage3 += '任何内容都可以.';
-    } else {
-        initMessage3 += topicInfo.value + '.';
-    }
-    var initMessage4 = '短视频的形式限定为：' + videoForm.value + '.';
-    var initMessage5 = '短视频的风格限定为：' + videoStyle.value + '.';
-    var initMessage = initMessage1 + initMessage2 + initMessage3 + initMessage4 + initMessage5;
+    var initMessage1 = genInitMessage1();
+    var initMessage2 = genInitMessage2();
+
+    var initMessage4 = '短视频的表现形式限定为：' + videoForm.value + '.';
+    var initMessage5 = '短视频的叙事风格限定为：' + videoStyle.value + '.';
+    var initMessage = initMessage1 + initMessage2 + initMessage4 + initMessage5;
     return initMessage;
 }
+var topicGenButton = document.getElementById('topic_auto_gen');
+var nameGenButton = document.getElementById('name_auto_gen');
 var ideaGenButton = document.getElementById('idea-generation');
 var searchButton = document.getElementById('material-search');
 var scriptGenButton = document.getElementById('draft-script');
 var clearButton = document.getElementById('clear');
 
 console.log('TEST log');
+
+topicGenButton.addEventListener('click', function() {
+    var initMessage1 = genInitMessage1();
+    var initMessage3 = '请根据当前信息推荐5个相关的创作选题思路, 每个选题思路最好不要超过15个字，只需简单概括.';
+    var finalMessage = initMessage1 + initMessage3;
+    console.log('Combined message for topicGen:', finalMessage);
+    addMessage('user','请按照要求推荐5个相关的创作选题思路');
+    sendMessage(finalMessage);
+});
+
+nameGenButton.addEventListener('click', function() {
+    var initMessage1 = genInitMessage1();
+    var initMessage2 = genInitMessage2();
+    var initMessage3 = '请根据当前信息推荐5个视频名称.';
+    var finalMessage = initMessage1 + initMessage2 + initMessage3;
+    console.log('Combined message for topicGen:', finalMessage);
+    addMessage('user','请按照要求推荐5个视频名称');
+    sendMessage(finalMessage);
+});
+
+
 ideaGenButton.addEventListener('click', function() {
     var initMessage = genInitMessage();
     var triggerMessage = '按照要求描述短视频的创作思路.';
@@ -186,4 +222,47 @@ scriptGenButton.addEventListener('click', function() {
 clearButton.addEventListener('click', function() {
     console.log('Combined message for clear:', 'clear chat');
     clrMessage();
+});
+
+//更新输入框里的文字
+document.getElementById('options-theme').addEventListener('change',updateThemeInfoPlaceholder);
+function updateThemeInfoPlaceholder() {
+    var select = document.getElementById('options-theme');
+    var input = document.getElementById('theme-info');
+    var selectedValue = select.value;
+
+    if (selectedValue === '地方宣传类') {
+        input.placeholder = '例：陕西宣传片';
+    } else if (selectedValue === '节日节点类') {
+        input.placeholder = '例：元旦/春节/端午';
+    } else if (selectedValue === '传统文化类') {
+        input.placeholder = '例：汉服/茶道/太极';
+    } else if (selectedValue === '人物故事类') {
+        input.placeholder = '例：李白生平介绍';
+    }
+}
+
+$(document).ready(function() {
+    // Initialize Select2 on the <select> element
+    $('#options-video-form').select2({
+        placeholder: "请选择，可多选,可自定义输入",
+        tags: true,
+        tokenSeparators: [' ',''],
+        allowClear: true
+    });
+
+    $('#options-video-style').select2({
+        placeholder: "请选择，可多选,可自定义输入",
+        tags: true,
+        tokenSeparators: [' ',''],
+        allowClear: true
+    });
+
+    $('#options-video-narrative').select2({
+        placeholder: "请选择，可多选,可自定义输入",
+        tags: true,
+        tokenSeparators: [' ',''],
+        allowClear: true
+    });
+
 });
