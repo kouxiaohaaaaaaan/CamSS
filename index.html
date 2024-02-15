@@ -34,12 +34,12 @@
                     <div class="topic-input-container">
                         <label for="topic-info">选题内容:</label>
                         <input type="text" id="topic-info" name="topic-info" class="theme-form" placeholder="请先输入主题内容">
-                        <button type="button" id="topic_auto_gen">小媒推荐</button>
+                        <button type="button" id="topic_auto_gen" disabled>小媒推荐</button>
                     </div>
                     <div class="video-name-input-container">
                         <label for="video-name">视频名称:</label>
                         <input type="text" id="video-name" name="video-name" class="theme-form" placeholder="请先输入选题内容">
-                        <button type="button" id="name_auto_gen">小媒推荐</button>
+                        <button type="button" id="name_auto_gen" disabled>小媒推荐</button>
                     </div>
                     <div class="select2-wrapper">
                         <label for="options-video-form" class="select2-label">表现形式:</label>
@@ -79,11 +79,10 @@
                         </select>
                     </div>
                     <div class="button-input-container">
-                        <button type="button" id="idea-generation" class="left-button">脚本思路生成</button>
-                        <button type="button" id="material-search" class="left-button">资料案例搜索</button>
+                        <button type="button" id="material-search" class="left-button" disabled>资料搜索</button>
+                        <button type="button" id="draft-script" class="left-button" disabled>稿件生成</button>
                     </div>
-                    <button type="button" id="draft-script" class="left-button">标题稿件生成</button>
-                    <button type="button" id="clear" class="left-button">重新开始</button>
+                    <button type="button" id="clear" class="left-button-last">重新开始</button>
                 </form>
             </aside>
 
@@ -99,7 +98,7 @@
                     </div>
                     <div id="chat-input-container">
                         <textarea id="user-input" placeholder="Type your message here..." required></textarea>
-                        <button type="submit" id="send-button" class="right-button">Send</button>
+                        <button type="submit" id="send-button" class="right-button" disabled>Send</button>
                     </div>
                 </div>
             </section>

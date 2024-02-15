@@ -52,6 +52,15 @@ header, footer {
 .left-button:last-child {
     margin-bottom: 0;
 }
+.left-button-last {
+    #display: block;
+    width: 70%;
+    #width: calc(100% - 30px);
+    padding: 5px;
+    margin-bottom: 20px;
+    font-size:1em;
+    cursor: pointer;
+}
 .right-button {
     display: block;
     padding: 15px;
