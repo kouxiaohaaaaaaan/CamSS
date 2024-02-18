@@ -1,7 +1,32 @@
+var chatbox = document.getElementById('message-list');
+
+function helpMessage() {
+    var messageClass = 'chatbot-message';
+    var name = '小媒';
+    var defaultMessage = "<b>系统使用说明:</b>\n1. 按照左侧提示依次选择或填入要求的信息;\n";
+    defaultMessage += "2. 填完选题内容后，点击 <b>资料生成</b>，并可在右侧输入框中进行内容调整;\n";
+    defaultMessage += "3. 选题内容和视频名称也可以通过点击右侧的 <b>小媒推荐</b> 来获取灵感;\n";
+    defaultMessage += "4. 左侧要求全部填选后，点击 <b>稿件生成</b>，查看最终的脚本;\n";
+    defaultMessage += "5. 任何时候可以点击 <b>重新开始</b>，从头来过。\n";
+    defaultMessage += "6. 如果发现小媒回复没有写全，可以输入<b>继续</b> 两个字试试哦。";
+    let text_updated = defaultMessage.replace(/\n/g, "<br>");
+    var messageHTML = '';
+    messageHTML = `
+        <div class="message-container ${messageClass}">
+            <span class="name">${name}</span>
+            <div class="message">${text_updated}</div>
+        </div>
+    `;
+    chatbox.innerHTML += messageHTML;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+    helpMessage();
+});
+
 function addMessage(sender, text) {
-    var chatbox = document.getElementById('chat-box');
     var messageClass = sender === 'user' ? 'user-message' : 'chatbot-message';
-    var name = sender === 'user' ? 'You' : '小媒';
+    var name = sender === 'user' ? '用户' : '小媒';
     let text_updated = text.replace(/\n/g, "<br>");
 
     // Create the message HTML
@@ -28,18 +53,14 @@ function addMessage(sender, text) {
     chatbox.scrollTop = chatbox.scrollHeight;
 }
 function clrMessage() {
-    var chatbox = document.getElementById('chat-box');
-
     // clear the message to the chatbox
     chatbox.innerHTML = `
-        <div id="chatbot-typing-indicator" style="display: none;">
-            小媒正在输入...
-        </div>
         <div class="message-container user-message">
-            <div class="message">clear previous history</div>
-            <span class="name">You</span>
+            <div class="message">删除历史记录</div>
+            <span class="name">用户</span>
         </div>
     `;
+    helpMessage();
 
     // Send user input to the python backend
     fetch('http://127.0.0.1:5000/clrresponse', {
@@ -62,7 +83,7 @@ function sendMessage(userInput) {
     // Show the typing indicator
     var typingIndicator = document.getElementById('chatbot-typing-indicator');
     typingIndicator.style.display = 'block';
-    typingIndicator.scrollIntoView();
+    //typingIndicator.scrollIntoView();
     //console.log('发送到chat的信息:',userInput)
 
     // Send user input to the python backend
@@ -143,7 +164,7 @@ $(document).ready(function() {
         allowClear: true
     });
     videoForm2.on('change', function() {
-        updateDraftButtonState();
+//        updateDraftButtonState();
     });
 
     var videoStyle2 = videoStyle.select2({
@@ -153,7 +174,7 @@ $(document).ready(function() {
         allowClear: true
     });
     videoStyle2.on('change', function() {
-        updateDraftButtonState();
+//        updateDraftButtonState();
     });
 
     var videoNarr2 = videoNarr.select2({
@@ -163,7 +184,7 @@ $(document).ready(function() {
         allowClear: true
     });
     videoNarr2.on('change', function() {
-        updateDraftButtonState();
+//        updateDraftButtonState();
     });
 
 });
@@ -179,8 +200,8 @@ var videoName = document.getElementById('video-name');
 
 function genInitMessage1() {
 
-    var initMessage1 = '你现在是一个专业的精通各类媒体短视频制作的内容创作者，现在用户需要你的帮助来完成一部短视频的创作.';
-    var initMessage2 = '该用户想要创作的主题类别是：' + theme.value + '. 想要包含的主题内容有：' + themeInfo.value + '.';
+    var initMessage1 = '用户需要你的帮助来完成一部短视频脚本的创作.';
+    var initMessage2 = '主题类别: ' + theme.value + '. 主题内容: ' + themeInfo.value + '.';
 
     var initMessage = initMessage1 + initMessage2;
     return initMessage;
@@ -188,7 +209,7 @@ function genInitMessage1() {
 
 function genInitMessage2() {
 
-    var initMessage = '具体的内容需要包含：';
+    var initMessage = '具体的内容包含: ';
     initMessage += topicInfo.value + '.';
 
     return initMessage;
@@ -196,7 +217,7 @@ function genInitMessage2() {
 
 function genInitMessage3() {
 
-    var initMessage = '短视频的名称叫做：';
+    var initMessage = '短视频名称: ';
     initMessage += videoName.value + '.';
 
     return initMessage;
@@ -208,12 +229,44 @@ function genInitMessage() {
     var initMessage2 = genInitMessage2();
     var initMessage3 = genInitMessage3();
 
-    var initMessage4 = '短视频的表现形式限定为：' + videoForm.val() + '.';
-    var initMessage5 = '短视频的叙事方式限定为：' + videoStyle.val() + '.';
-    var initMessage6 = '短视频的人声形式限定为：' + videoNarr.val() + '.';
+    var initMessage4 = '表现形式为: ' + videoForm.val() + '.';
+    var initMessage5 = '叙事方式为: ' + videoStyle.val() + '.';
+    var initMessage6 = '人声形式为: ' + videoNarr.val() + '.';
     var initMessage = initMessage1 + initMessage2 + initMessage3 + initMessage4 + initMessage5 + initMessage6;
     return initMessage;
 }
+
+//function genReqrMessageOrig() {
+//    var initMessage1 = '输出的内容和格式要求如下: ';
+//    var initMessage2 = '第一部分为基本信息，包括短视频名称，主题类别，主题内容，选题内容，表现形式，叙事方式，人声形式. ';
+//    var initMessage3 = '第二部分为视频脚本的输出，包含开头，中间片段，结尾.';
+//    initMessage3 += '开头和结尾根据主题类别和主题内容，需要至少两个画面，每一个画面描述不能少于200中文字，每一个画面需要包含运镜的描述，需要标明表现形式. ';
+//    initMessage3 += '每一个画面需要有对应的人声脚本，脚本不少于200中文字，需要首位呼应. ';
+//    var initMessage4 = '中间片段按照之前的选题素材扩写，每一个选题内容都需要有至少三个画面，每一个画面描述不能少于300中文字. 每一个画面需要包含运镜的描述，需要标明表现形式. ';
+//    initMessage4 += '每一个画面需要有对应的人声脚本，脚本至少要有300中文字.';
+//    var initMessage5 = '如果返回的完整内容超过最大token，需要将完整脚本按顺序拆分成若干小于最大token的独立部分，';
+//    initMessage5 += '并告知用户脚本生成还未结束，需要输入 \'继续\' 两个字.';
+//
+//    var message = initMessage1 + initMessage2 + initMessage3 + initMessage4 + initMessage5;
+//    return message;
+//}
+function genReqrMessage() {
+    var initMessage1 = '输出的内容和格式要求如下: ';
+    var initMessage2 = '**短视频创作脚本**\n**基本信息**\n';
+    initMessage2    += '*短视频名称:\n视频时长:分钟\n*主题类别:\n*主题内容:\n*选题内容:\n*表现形式:\n*叙事方式:\n*人声形式:\n\n';
+    var initMessage3 = '开场需要概括性和介绍性，格式要求:**开场**\n*画面1*:(运镜)描述+(画面)描述100字(表现形式:)\n*(人声形式)脚本*:200字\n';
+    initMessage3    += '画面2+人声脚本的要求同画面1+人声脚本\n';
+    var initMessage4 = '每一个选题为一个章节，转场需要连贯自然，格式要求:**其中一个选题内容**\n*画面1*:(运镜)描述+(画面)描述200字描述(表现形式:)\n';
+    initMessage4    += '*(人声形式)脚本*:300字\n*画面2+人声脚本要求同画面1+人声脚本\n';
+    initMessage4    += '*画面3+人声脚本要求同画面1+人声脚本\n';
+    var initMessage5 = '结尾需要和开场首尾呼应，格式要求和开场一致.';
+
+    var message = initMessage1 + initMessage2 + initMessage3 + initMessage4 + initMessage5;
+    return message;
+}
+
+
+
 var topicGenButton = document.getElementById('topic_auto_gen');
 var nameGenButton = document.getElementById('name_auto_gen');
 //var ideaGenButton = document.getElementById('idea-generation');
@@ -256,7 +309,8 @@ searchButton.addEventListener('click', function() {
     var initMessage2 = genInitMessage2();
     var initMessage3 = genInitMessage3();
     var initMessage = initMessage1 + initMessage2 + initMessage3;
-    var triggerMessage = '请根据该短视频的主题类别和主题内容，对每一个选题内容进行相关资料的收集和推荐，然后进行扩写，要求不能少于200字.';
+    var triggerMessage = '请根据该短视频的主题类别和主题内容，对每一个选题内容进行相关材料的收集和推荐，每一个选题内容多于300字，';
+    triggerMessage    += '完成后询问是否需要扩写，如被要求扩写,内容加倍.';
     var finalMessage = initMessage + triggerMessage;
     console.log('Combined message for search:', finalMessage);
     addMessage('user','搜索内容相关资料');
@@ -265,8 +319,9 @@ searchButton.addEventListener('click', function() {
 
 scriptGenButton.addEventListener('click', function() {
     var initMessage = genInitMessage();
-    var triggerMessage = '请根据现有的相关材料和内容，生成一个短视频创作脚本';
-    var finalMessage = initMessage + triggerMessage;
+    var triggerMessage = '请根据现有的相关材料和内容，生成一个短视频创作脚本. ';
+    var requiredMessage = genReqrMessage();
+    var finalMessage = initMessage + triggerMessage + requiredMessage;
     console.log('Combined message for scriptGen:', finalMessage);
     addMessage('user','生成初始创作脚本');
     sendMessage(finalMessage);
@@ -292,16 +347,17 @@ function updateThemeInfoPlaceholder() {
 
 theme.addEventListener('change',updateTopicButtonState);
 theme.addEventListener('change',updateNameButtonState);
-theme.addEventListener('change',updateDraftButtonState);
+//theme.addEventListener('change',updateDraftButtonState);
 
 themeInfo.addEventListener('input',updateTopicButtonState);
 themeInfo.addEventListener('input',updateNameButtonState);
-themeInfo.addEventListener('input',updateDraftButtonState);
+//themeInfo.addEventListener('input',updateDraftButtonState);
 
 topicInfo.addEventListener('input',updateNameButtonState);
-topicInfo.addEventListener('input',updateDraftButtonState);
+//topicInfo.addEventListener('input',updateDraftButtonState);
 
-videoName.addEventListener('input',updateDraftButtonState);
+//videoName.addEventListener('input',updateDraftButtonState);
+searchButton.addEventListener('click', updateDraftButtonState);
 
 function updateTopicButtonState() {
     if (theme.selectedIndex > 0 && themeInfo.value.trim() !=="") {
@@ -356,4 +412,5 @@ clearButton.addEventListener('click', function() {
 //    ideaGenButton.disabled = true;
     searchButton.disabled = true;
     scriptGenButton.disabled = true;
+    submitButton.disabled = true;
 });

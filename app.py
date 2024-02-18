@@ -3,11 +3,15 @@ import os.path
 import requests
 import json
 from flask import Flask, render_template, request, jsonify
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 chat_f = 'chat_history.json'
 chat_msg_f = 'chat_history.msg.json'
-
+chat_msg_f_mod = 'chat_history.msg.converted.json'
+system_person = '你是一个专业的短视频内容创作者，精通各类媒体短视频脚本的创作.'
+system_person += '当被要求扩写或者生成完整脚本时，对细节有更多的描述.'
+system_person += '每一次如果返回的完整内容超过最大token，需要按顺序拆分成完整独立的部分.'
+system_person += '每一次都要告知用户生成还未结束，需要输入 \'继续\' 两个字.'
 def load_env():
     with open('.env', 'r') as file:
         lines = file.readlines()
@@ -27,6 +31,7 @@ app = Flask(__name__, template_folder='.')
 CORS(app)
 
 @app.route('/getresponse',methods=['POST'])
+@cross_origin()
 def get_response():
     data = request.json
     user_message = data['message']
@@ -50,7 +55,8 @@ def chatbot_res(message):
     data.append(user_data)
     #print(data)
     payload = json.dumps({
-        "messages": data
+        "messages": data,
+        "system": system_person
     })
     headers = {
         'Content-Type': 'application/json',
@@ -87,6 +93,9 @@ def chatbot_res(message):
     data.append(bot_data)
     with open(chat_msg_f, 'w', encoding='utf-8') as f:
         json.dump(data, f, indent=4, ensure_ascii=True)
+
+    with open(chat_msg_f_mod, 'w', encoding='utf-8') as f:
+        json.dump(data, f, indent=4, ensure_ascii=False)
 
     return response.json()['result']
 

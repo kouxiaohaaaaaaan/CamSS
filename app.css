@@ -8,6 +8,12 @@ header, footer {
     text-align: center;
     background-color: #f2f2f2;
 }
+
+.label-font {
+    font-size: 12px;
+    font-weight: bold;
+}
+
 #content-wrapper {
     display: flex;
 }
@@ -16,8 +22,8 @@ header, footer {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    height: 85vh;
-    width: 33%;
+    height: 100%;
+    width: 30%;
     padding: 20px;
     background-color: #e6e6e6;
 }
@@ -25,6 +31,7 @@ header, footer {
     width: 51%;
     height: 20px;
     margin-bottom: 20px;
+    font-size: 12px;
 }
 #additional-info-container {
     margin-bottom: auto;
@@ -82,12 +89,18 @@ header, footer {
 }
 #chat-box {
     flex-grow: 1;
-    height: 60vh;
+    height: 66vh;
     overflow-y: auto;
     padding: 20px;
     background: #f9f9f9;
     border-bottom: 2px solid #eee;
 }
+
+#chatbot-typing-indicator {
+    #position: absolute;
+    bottom: 0;
+}
+
 .message-container {
     display: flex;
     margin-bottom: 10px;
@@ -103,6 +116,7 @@ header, footer {
     padding: 8px;
     border-radius: 4px;
     display: inline-block;
+    font-size: 12px;
 }
 .chatbot-message {
     justify-content: flex-start;
@@ -112,6 +126,7 @@ header, footer {
 }
 .chatbot-message .message {
     background-color: #e6e6e6;
+    font-size: 12px;
 }
 .user-message {
     justify-content: flex-end;
@@ -125,6 +140,7 @@ header, footer {
     background-color: #007bff;
     color: white;
     order: 1;
+    font-size: 12px;
 }
 #chat-input-container {
     padding: 20px;
@@ -134,6 +150,7 @@ header, footer {
 }
 #user-input {
     flex-grow: 1;
+    max-height: 50px;
     padding: 10px;
     margin-right: 10px;
     border: 1px solid #ddd;
@@ -152,14 +169,14 @@ header, footer {
 .select2-container--default .select2-selection--single,
 .select2-container--default .select2-selection--multiple .select2-selection__choice,
 .select2-container--default .select2-selection--multiple .select2-search--inline .select2-search__field {
-    font-size: 14px;
+    font-size: 12px;
 }
 .select2-container--default .select2-results__option {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .select2-container--default .select2-search--dropdown .select2-search__field {
-    font-size: 14px;
+    font-size: 12px;
 }
 
 .select2-container {
@@ -179,4 +196,6 @@ header, footer {
 
 .select2-label {
     margin-right: 5px;
+    font-size: 12px;
+    font-weight: bold;
 }

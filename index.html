@@ -16,8 +16,9 @@
                 <header>
                     <h1>媒体短视频脚本辅助生成系统</h1>
                 </header>
+                <br>
                 <form id="options-form">
-                    <label for="options-theme">主题类别:</label>
+                    <label for="options-theme" class="label-font">主题类别:</label>
                     <select id ="options-theme" name="options-theme"  class="theme-form">
                         <option value="" disabled selected>请选择</option>
                         <option value="地方宣传类">地方宣传类</option>
@@ -28,16 +29,16 @@
                         <!-- <option value="其他">其他</option> -->
                     </select>
                     <br>
-                    <label for="theme-info">主题内容:</label>
+                    <label for="theme-info" class="label-font">主题内容:</label>
                     <input type="text" id="theme-info" name="theme-info" class="theme-form" placeholder="请先选择主题类别">
                     <br>
                     <div class="topic-input-container">
-                        <label for="topic-info">选题内容:</label>
+                        <label for="topic-info" class="label-font">选题内容:</label>
                         <input type="text" id="topic-info" name="topic-info" class="theme-form" placeholder="请先输入主题内容">
                         <button type="button" id="topic_auto_gen" disabled>小媒推荐</button>
                     </div>
                     <div class="video-name-input-container">
-                        <label for="video-name">视频名称:</label>
+                        <label for="video-name" class="label-font">视频名称:</label>
                         <input type="text" id="video-name" name="video-name" class="theme-form" placeholder="请先输入选题内容">
                         <button type="button" id="name_auto_gen" disabled>小媒推荐</button>
                     </div>
@@ -78,9 +79,10 @@
                             <option value="无">无</option>
                         </select>
                     </div>
+                    <br>
                     <div class="button-input-container">
-                        <button type="button" id="material-search" class="left-button" disabled>资料搜索</button>
-                        <button type="button" id="draft-script" class="left-button" disabled>稿件生成</button>
+                        <button type="button" id="material-search" class="left-button" disabled>1. 资料生成</button>
+                        <button type="button" id="draft-script" class="left-button" disabled>2. 稿件生成</button>
                     </div>
                     <button type="button" id="clear" class="left-button-last">重新开始</button>
                 </form>
@@ -91,14 +93,15 @@
                 <div class="chat-container">
                     <div class="chat-box" id="chat-box">
                         <!-- Chat messages will be displayed here -->
+                        <ul id="message-list"></ul>
                         <!-- Typing indicator -->
                         <div id="chatbot-typing-indicator" style="display: none;">
                             小媒正在输入...
                         </div>
                     </div>
                     <div id="chat-input-container">
-                        <textarea id="user-input" placeholder="Type your message here..." required></textarea>
-                        <button type="submit" id="send-button" class="right-button" disabled>Send</button>
+                        <textarea id="user-input" placeholder="请在此输入..." required></textarea>
+                        <button type="submit" id="send-button" class="right-button" disabled>发送</button>
                     </div>
                 </div>
             </section>
