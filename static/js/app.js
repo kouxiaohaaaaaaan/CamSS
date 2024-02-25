@@ -63,7 +63,7 @@ function clrMessage() {
     helpMessage();
 
     // Send user input to the python backend
-    fetch('http://127.0.0.1:5000/clrresponse', {
+    fetch('http://127.0.0.1:7777/clrresponse', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'
@@ -87,7 +87,7 @@ function sendMessage(userInput) {
     //console.log('发送到chat的信息:',userInput)
 
     // Send user input to the python backend
-    fetch('http://127.0.0.1:5000/getresponse', {
+    fetch('http://127.0.0.1:7777/getresponse', {
         method: 'POST',
         headers: {
         'Content-Type': 'application/json'

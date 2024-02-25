@@ -7,6 +7,7 @@ from flask_cors import CORS, cross_origin
 import webbrowser
 from threading import Timer
 
+base_dir = os.path.abspath(os.path.dirname(__file__))
 chat_f = 'chat_history.json'
 chat_msg_f = 'chat_history.msg.json'
 chat_msg_f_mod = 'chat_history.msg.converted.json'
@@ -14,8 +15,8 @@ system_person = '你是一个专业的短视频内容创作者，精通各类媒
 system_person += '当被要求扩写或者生成完整脚本时，对细节有更多的描述.'
 system_person += '每一次如果返回的完整内容超过最大token，需要按顺序拆分成完整独立的部分.'
 system_person += '每一次都要告知用户生成还未结束，需要输入 \'继续\' 两个字.'
+
 def load_env():
-    base_dir = os.path.abspath(os.path.dirname(__file__))
     env_path = os.path.join(base_dir,'.env')
     with open(env_path, 'r') as file:
         lines = file.readlines()
@@ -38,7 +39,7 @@ CORS(app)
 def index():
     return render_template('index.html')
 def open_browser():
-    webbrowser.open_new('http://127.0.0.1:5000/')
+    webbrowser.open_new('http://127.0.0.1:7777/')
 
 @app.route('/getresponse',methods=['POST'])
 @cross_origin()
@@ -129,5 +130,5 @@ def get_access_token(API_KEY,SECRET_KEY):
 
 if __name__ == '__main__':
     Timer(1, open_browser).start()
-    app.run(port=5000,debug=True)
+    app.run(port=7777,debug=True)
 
