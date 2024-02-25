@@ -130,5 +130,5 @@ def get_access_token(API_KEY,SECRET_KEY):
 
 if __name__ == '__main__':
     Timer(1, open_browser).start()
-    app.run(port=7777,debug=True)
+    app.run(port=7777,debug=False)
 
