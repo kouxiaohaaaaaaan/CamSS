@@ -4,6 +4,8 @@ import requests
 import json
 from flask import Flask, render_template, request, jsonify
 from flask_cors import CORS, cross_origin
+import webbrowser
+from threading import Timer
 
 chat_f = 'chat_history.json'
 chat_msg_f = 'chat_history.msg.json'
@@ -13,7 +15,9 @@ system_person += '当被要求扩写或者生成完整脚本时，对细节有�
 system_person += '每一次如果返回的完整内容超过最大token，需要按顺序拆分成完整独立的部分.'
 system_person += '每一次都要告知用户生成还未结束，需要输入 \'继续\' 两个字.'
 def load_env():
-    with open('.env', 'r') as file:
+    base_dir = os.path.abspath(os.path.dirname(__file__))
+    env_path = os.path.join(base_dir,'.env')
+    with open(env_path, 'r') as file:
         lines = file.readlines()
     env_vars = {}
     for line in lines:
@@ -29,6 +33,12 @@ SECRET_KEY = env_vars["SECRET_KEY"]
 
 app = Flask(__name__, template_folder='.')
 CORS(app)
+
+@app.route('/')
+def index():
+    return render_template('index.html')
+def open_browser():
+    webbrowser.open_new('http://127.0.0.1:5000/')
 
 @app.route('/getresponse',methods=['POST'])
 @cross_origin()
@@ -118,5 +128,6 @@ def get_access_token(API_KEY,SECRET_KEY):
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    Timer(1, open_browser).start()
+    app.run(port=5000,debug=True)
 
